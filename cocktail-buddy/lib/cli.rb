@@ -2,6 +2,7 @@ class CLI
     def run
         puts "Welcome to Cocktail Buddy!"
         sleep 2
+        Scraper.scrape_cocktails
         age_check
     end
 
@@ -25,7 +26,7 @@ class CLI
     def menu
         puts "What'll it be? (Please enter the number of the cocktail you would like to make)" "\n" "\n"
         sleep 1
-        Scraper.scrape_cocktails
+        cocktail_information
         puts "\n"
         input = gets.strip.to_i
         if input > 10 || input == 0
@@ -37,7 +38,7 @@ class CLI
             puts "\n Sounds good! Lemme show you how it's done!"
             sleep 1
             cocktail = Cocktail.all[input.to_i-1]
-            Scraper.scrape_recipe(input, cocktail)
+            Scraper.scrape_recipe(input, cocktail) if cocktail.method == nil
             puts "\n \n #{cocktail.name}: \n \n"
             puts "Ingredients: #{cocktail.ingredients} \n \n"
             puts "Directions: #{cocktail.method} \n \n"
@@ -45,11 +46,12 @@ class CLI
         end
     end
 
-    def display_cocktail_recipe(cocktail)
-        Scraper.scrape_recipe(cocktail)
-
-
+    def cocktail_information
+        Cocktail.all.each.with_index(1) do |cocktail, index|
+        puts "#{index}. #{cocktail.name}"
+        end
     end
+        
 
     def continue
         puts "Another Round?"

@@ -1,6 +1,5 @@
 require 'open-uri'
 require 'nokogiri'
-require 'rest-client'
 require 'json'
 require 'pry'
 require_relative 'cocktail'
@@ -15,7 +14,7 @@ class Scraper
         doc.css("h2").each.with_index(1) do | cocktail, index |
             name = cocktail.text
             Cocktail.new(name)
-            puts "#{index}. #{name}"
+            # puts "#{index}. #{name}"
         end
 
     end
@@ -38,22 +37,22 @@ class Scraper
             cocktail.method = doc.css("p").css("em").text.split("Method: ")[4]
         when 5
             cocktail.ingredients = doc.css("ul").css("li")[50..55].map(&:text).join(', ')
-            cocktail.method = doc.css("p").css("em").text.split("Method:")[5]
+            cocktail.method = doc.css("p").css("em").text.split("Method: ")[5]
         when 6
             cocktail.ingredients = doc.css("ul").css("li")[56..58].map(&:text).join(', ')
-            cocktail.method = doc.css("p").css("em").text.split("Method:")[6]
+            cocktail.method = doc.css("p").css("em").text.split("Method: ")[6]
         when 7
             cocktail.ingredients = doc.css("ul").css("li")[59..61].map(&:text).join(', ')
-            cocktail.method = doc.css("p").css("em").text.split("Method:")[7]
+            cocktail.method = doc.css("p").css("em").text.split("Method: ")[7]
         when 8
             cocktail.ingredients = doc.css("ul").css("li")[62..65].map(&:text).join(', ')
-            cocktail.method = doc.css("p").css("em").text.split("Method:")[8]
+            cocktail.method = doc.css("p").css("em").text.split("Method: ")[8]
         when 9
             cocktail.ingredients = doc.css("ul").css("li")[66..69].map(&:text).join(', ')
-            cocktail.method = doc.css("p").css("em").text.split("Method:")[9]
+            cocktail.method = doc.css("p").css("em").text.split("Method: ")[9]
         when 10
             cocktail.ingredients = doc.css("ul").css("li")[70..73].map(&:text).join(', ')
-            cocktail.method = doc.css("p").css("em").text.split("Method:")[10]
+            cocktail.method = doc.css("p").css("em").text.split("Method: ")[10]
         end
     end
 end
